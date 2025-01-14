@@ -1,0 +1,40 @@
+{
+  "name": "rhythm-analyzer",
+  "private": true,
+  "type": "module",
+  "version": "2025.1.14",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force"
+  },
+  "dependencies": {
+    "@mdi/font": "7.4.47",
+    "eslint": "^9.18.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "rhythm-analyzer": "file:",
+    "roboto-fontface": "*",
+    "ultra-mega-enumerator": "2025.1.14-3",
+    "vue": "^3.4.31",
+    "vuetify": "^3.6.14"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.9.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/eslint-config-typescript": "^14.1.3",
+    "@vue/tsconfig": "^0.5.1",
+    "npm-run-all2": "^7.0.1",
+    "sass": "1.77.8",
+    "sass-embedded": "^1.77.8",
+    "typescript": "~5.6.3",
+    "unplugin-fonts": "^1.1.1",
+    "unplugin-vue-components": "^0.27.2",
+    "vite": "^5.4.10",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vue-tsc": "^2.1.10"
+  },
+  "packageManager": "yarn@4.6.0"
+}
