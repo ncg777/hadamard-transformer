@@ -16,7 +16,9 @@ export class Sequence{
     get(index: number): number | undefined {
         return this.items[index];
     }
-
+    set(index: number, value:number): void {
+        this.items[index] = value;
+    }
     toArray(): number[] {
         return this.items;
     }
