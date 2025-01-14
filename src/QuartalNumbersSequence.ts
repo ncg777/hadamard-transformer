@@ -3,6 +3,7 @@ import { Cipher, Name } from './Cipher';
 import { BinaryNatural } from './BinaryNatural';
 import { Natural } from './Natural';
 import { BitSet, Combination } from 'ultra-mega-enumerator';
+import { Sequence } from './Sequence';
 
 class QuartalNumbersSequence extends Array<QuartalNumber> {
     private alphabetName: Name;
@@ -44,6 +45,28 @@ class QuartalNumbersSequence extends Array<QuartalNumber> {
         return this.reverse().map(qn => qn.toString(true)).join(' ').trim();
     }
 
+    clusterPartition(alphabetName: Name): Sequence {
+        const clusters = QuartalNumbersSequence.clusterRhythmPartition(alphabetName, this.toBinaryNatural().decomposeIntoHomogeneousRegions());
+        const rs: BinaryNatural[] = [];
+    
+        for (const r of clusters) {
+            rs.push(r.toBinaryNatural());
+        }
+    
+        const o = new Sequence(...[]);
+        const n: number = rs[0].size();
+    
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < clusters.length; j++) {
+                if (rs[j].get(i)) {
+                    o.add(j);
+                }
+            }
+        }
+    
+        return new Sequence(...o.toArray().reverse());
+    }
+    
     static expand(a: QuartalNumbersSequence, x: number, fill: boolean): QuartalNumbersSequence {
         const b = a.toBinaryNatural();
         const o = new BinaryNatural(new BitSet(x * b.size()));
