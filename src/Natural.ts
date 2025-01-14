@@ -15,9 +15,9 @@ export class Natural extends Array<string> {
     constructor(...args: any[]) {
         super(); // Initialize the base Array
         this.alphabetName = args[0]; // Set the alphabet name
-
-        if (args.length === 1 && args[0] instanceof String) {
-            const str = args[0] as string;
+        
+        if (args.length == 2 && typeof args[1] === "string") {
+            const str = args[1] as string;
             for (let i = str.length - 1; i >= 0; i--) {
                 this.push(str.charAt(i));
             }
@@ -48,7 +48,7 @@ export class Natural extends Array<string> {
     }
 
     static log2OfBigInt(value: bigint): bigint {
-        if (value <= 0n) throw new RangeError("Value must be positive.");
+        if (value < 0n) throw new RangeError("Value must be positive.");
     
         let result: bigint = 0n;
     
@@ -61,13 +61,13 @@ export class Natural extends Array<string> {
     }
     
     toBinaryNatural(): BinaryNatural {
-        const sz = Natural.log2OfBigInt(
-            (BigInt(Cipher.getAlphabet(this.alphabetName)!.length)**BigInt(this.length))-1n
-        ) as unknown as number;
+        const sz = Number(Natural.log2OfBigInt(
+            (BigInt(Cipher.getAlphabet(this.alphabetName)!.length)**BigInt(this.length))
+        ));
         const b = new Natural(Name.Binary,this.toBigInteger(),sz);
         const bs = new BitSet(sz);
         for(let i=0;i<sz;i++) bs.set(i,b[i]=="1")
-        return new BinaryNatural(bs);
+        return (new BinaryNatural(bs)).reverse();
     }
 
     toBigInteger(): BigInt {

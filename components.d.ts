@@ -7,5 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    RhythmVisualizer: typeof import('./src/components/RhythmVisualizer.vue')['default']
   }
 }

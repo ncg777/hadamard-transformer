@@ -1,6 +1,6 @@
 import { BitSet, Combination, Composition } from 'ultra-mega-enumerator';
 import { Sequence } from './Sequence';
-import { Name } from './Cipher';
+import { Cipher, Name } from './Cipher';
 import { Natural } from './Natural';
 
 export class BinaryNatural extends Combination {
@@ -31,7 +31,7 @@ export class BinaryNatural extends Combination {
     }
     
     toNatural(alphabetName: Name) {
-        return new Natural(alphabetName, this.toBigInteger(), this.size());
+        return new Natural(alphabetName, this.toBigInteger(), this.size()/Cipher.getAlphabet(alphabetName)!.information());
     }
 
     toBinaryString(): string {

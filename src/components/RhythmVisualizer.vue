@@ -1,0 +1,200 @@
+<template>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <v-text-field
+          v-model="hexString"
+          label="Enter Rhythm (Hexadecimal)"
+          outlined
+          @input="onHexStringChange"
+        />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="12" md="12">
+        <div class="rv">
+        <svg
+          width="svgWidth"
+          height="svgHeight"
+          :viewBox="'0 0 100 ' + (100/this.columns)"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Draw grid -->
+          <rect
+            v-for="(active, index) in rhythmArray"
+            :key="index"
+            :x="(index * cellSize)"
+            :y="0"
+            :width="cellSize"
+            :height="cellSize"
+            :fill="active ? 'blue' : 'lightgray'"
+            @click="toggleCell(index)"
+            stroke="black"
+          />
+          <!-- Draw midpoints -->
+          <circle
+            v-for="(mid, index) in midPoints"
+            :key="'mid-' + index"
+            :cx="mid.x"
+            :cy="mid.y"
+            r="0.5%"
+            fill="red"
+          />
+          <!-- Draw contour values -->
+          <text
+            v-for="(note, index) in contourValues"
+            :key="'note-' + index"
+            :x="note.x"
+            :y="note.y"
+            font-size="12"
+            fill="black"
+            text-anchor="middle"
+            dominant-baseline="middle"
+          >
+            {{ note.value }}
+          </text>
+          <!-- Draw shadow contour values -->
+          <text
+            v-for="(mid, index) in shadowContourValues"
+            :key="'shadow-' + index"
+            :x="mid.x+'%'"
+            :y="mid.y+'vh'"
+            font-size="12"
+            fill="green"
+            text-anchor="middle"
+            dominant-baseline="middle"
+          >
+            {{ mid.value }}
+          </text>
+        </svg>
+      </div>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+import { BinaryNatural } from "../BinaryNatural";
+import { Natural } from "../Natural";
+import { Cipher, Name } from '../Cipher';
+import { Composition } from 'ultra-mega-enumerator';
+
+export default {
+  name: "RhythmVisualizer",
+  props: {
+    modelValue: {
+      type: String,
+      required: true,
+    },
+    width: {
+      type: Number,
+      default: 100
+    },
+    height: {
+      type: Number,
+      default: 10 
+    },
+  },
+  data() {
+    return {
+      hexString: this.modelValue,
+    };
+  },
+  computed: {
+    rhythmArray() {
+      return this.hexToBinary(this.hexString);
+    },
+    cellSize() {
+      return (100.0/this.columns);
+    },
+    svgWidth() {
+      return '100%';
+    },
+    svgHeight() {
+      return this.height + 'vh';
+    },
+    columns() {
+      return this.rhythmArray.length;
+    },
+    contour() {
+      return (new Natural(Name.Hexadecimal,this.hexString)).getContour();
+    },
+    shadowContour() {
+      return (new Natural(Name.Hexadecimal,this.hexString)).getShadowContour();
+    },
+    gridSize() {
+      return this.columns * this.cellSize;
+    },
+    midPoints() {
+      const points = [];
+      const comb = new BinaryNatural(this.rhythmArray);
+      const combarr = comb.getCombinationAsArray();
+      const comp = Composition.compositionFromCombination(comb).getCompositionAsArray();
+      for(let i=0; i< combarr.length;i++) {
+        let x = (combarr[i]+(comp[i]/2.0));
+        if(x >= this.columns) x -= this.columns;
+        x = (x/this.columns)*this.width;
+        points.push({
+            x: x,
+            y: this.cellSize/2.0,
+          });
+      }
+      
+      return points;
+    },
+    contourValues() {
+      // Returns contour values at each note position
+      return this.rhythmArray.map((active, index) => {
+        const x = (index % this.columns) * this.cellSize + this.cellSize / 2;
+        const y = Math.floor(index / this.columns) * this.cellSize + this.cellSize / 2;
+        return { x, y, value: active ? this.contour[index] : "" };
+      });
+    },
+    shadowContourValues() {
+      return this.midPoints.map((mid, index) => ({
+        x: mid.x,
+        y: mid.y,
+        value: this.shadowContour[index],
+      }));
+    },
+  },
+  watch: {
+    modelValue(newValue) {
+      this.hexString = newValue;
+      this.onHexStringChange();
+    },
+  },
+  methods: {
+    onHexStringChange() {
+      this.$emit("update:modelValue", this.hexString);
+    },
+    hexToBinary(hex) {
+      return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
+    },
+    toggleCell(index) {
+      const ra = this.rhythmArray;
+
+      ra[index] = 1 - this.rhythmArray[index];
+      this.hexString = (new BinaryNatural(ra).reverse()).toNatural(Name.Hexadecimal).toString();
+      this.$emit("update:modelValue", this.hexString);
+    },
+    binaryToHex(binaryArray) {
+      const binaryString = binaryArray.join("");
+      return Array.from(
+        { length: binaryString.length / 4 },
+        (_, i) =>
+          parseInt(binaryString.slice(i * 4, i * 4 + 4), 2).toString(16)
+      ).join("");
+    }
+  }
+};
+</script>
+
+<style scoped>
+svg {
+  border: 1px solid black;
+}
+.rv{
+  height: 10vh;
+}
+</style>
