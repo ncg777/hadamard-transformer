@@ -27,7 +27,7 @@
             :y="0"
             :width="cellSize"
             :height="cellSize"
-            :fill="active ? 'blue' : 'lightgray'"
+            :fill="active ? 'green' : 'lightgray'"
             @click="toggleCell(index)"
             stroke="black"
           />
@@ -38,7 +38,7 @@
             :cx="mid.x"
             :cy="mid.y"
             r="0.5%"
-            fill="red"
+            fill="yellow"
           />
           <!-- Draw contour values -->
           <text

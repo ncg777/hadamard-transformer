@@ -17,7 +17,7 @@ export class Natural extends Array<string> {
         this.alphabetName = args[0]; // Set the alphabet name
         
         if (args.length == 2 && typeof args[1] === "string") {
-            const str = args[1] as string;
+            const str = (args[1] as string).replace(/\s+/g,'');
             for (let i = str.length - 1; i >= 0; i--) {
                 this.push(str.charAt(i));
             }
