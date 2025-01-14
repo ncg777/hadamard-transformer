@@ -2,7 +2,6 @@ import { QuartalNumber } from './QuartalNumber';
 import { Cipher, Name } from './Cipher';
 import { BinaryNatural } from './BinaryNatural';
 import { Natural } from './Natural';
-import { Sequence } from './Sequence';
 import { BitSet, Combination } from 'ultra-mega-enumerator';
 
 class QuartalNumbersSequence extends Array<QuartalNumber> {
@@ -33,12 +32,12 @@ class QuartalNumbersSequence extends Array<QuartalNumber> {
         }
     }
 
-    toWord(): Natural {
+    toNatural(): Natural {
         return new Natural(this.alphabetName, this.toString().replace(/\s/g, ""));
     }
 
     toBinaryNatural(): BinaryNatural {
-        return this.toWord().toBinaryNatural();
+        return this.toNatural().toBinaryNatural();
     }
 
     toString(): string {
