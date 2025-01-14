@@ -147,4 +147,15 @@ export class Natural extends Array<string> {
         }
         return false;
     }
+    public toString(): string {
+        let sb = ''; // Using a string instead of StringBuilder
+
+        // Append each element to the string
+        for (const c of this) {
+            sb += c.toString(); // assuming c is convertible to string
+        }
+        
+        // Reverse the string
+        return sb.split('').reverse().join('');
+    }
 }
