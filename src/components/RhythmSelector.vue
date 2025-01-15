@@ -14,7 +14,7 @@
       <svg
         :width="this.width"
         :height="this.height"
-        :viewBox="'0 0 100 ' +(100.0/this.columns)"
+        :viewBox="'-10 0 110 ' +(this.cellSize)"
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
@@ -24,17 +24,17 @@
           :y="0"
           :width="cellSize"
           :height="cellSize"
-          :fill="active ? 'green' : 'lightgray'"
+          :fill="active ? 'white' : 'black'"
           @click="toggleCell(index)"
-          stroke="black"
+          stroke="0"
         />
         <circle
           v-for="(mid, index) in midPoints"
           :key="'mid-' + index"
           :cx="mid.x"
           :cy="mid.y"
-          r="2%"
-          fill="yellow"
+          :r="cellSize/4"
+          fill="darkgrey"
         />
         <text
           v-for="(index, i) in combArr"
@@ -51,7 +51,7 @@
           :x="mid.x"
           :y="this.cellSize/2.0"
           font-size="1"
-          fill="black"
+          fill="white"
           text-anchor="middle"
           dominant-baseline="middle"
         >{{this.shadowContour[index]}}</text>
