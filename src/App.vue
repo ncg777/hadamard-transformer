@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const hexRhythm = ref("8000");
+const hexRhythm = ref("A8A88A8A");
 function updateHexRhythm(newValue:string) {
   hexRhythm.value = newValue;
 }
