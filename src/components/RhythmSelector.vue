@@ -115,7 +115,7 @@ export default {
     midPoints() {
       const points = [];
       for(let i=0; i< this.combArr.length;i++) {
-        let x = (this.combArr[i]+(this.comp[i]/2.0));
+        let x = (this.combArr[i]+(this.comp[i]/2.0))+0.5;
         if(x >= this.columns) x -= this.columns;
         x = (100.0*x/this.columns);
         points.push({
