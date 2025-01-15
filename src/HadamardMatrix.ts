@@ -35,7 +35,7 @@ export class HadamardMatrix extends Matrix<number> {
         return new HadamardMatrix(expandedMatrix);
     }
 
-    public sortSequence(): Matrix<number> {
+    public sortSequency(): Matrix<number> {
         const rowsMap: Map<number, number[]> = new Map();
         
         for (let i = 0; i < this.rowCount(); i++) {
@@ -43,9 +43,8 @@ export class HadamardMatrix extends Matrix<number> {
             const key = new Sequence(...sequence.difference().toArray().map((n) => n === 0 ? 0 : 1)).sum();
             rowsMap.set(key, this.getRow(i));
         }
-
-        const sortedMatrix = new Matrix<number>(Array.from(rowsMap.values()));
-        return sortedMatrix;
+        
+        return new Matrix<number>([...rowsMap.keys()].map((key) => rowsMap.get(key)!));
     }
 
     public getOrder(): number {
