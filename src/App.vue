@@ -67,7 +67,7 @@
             </p>
             <p>
               The color scheme encodes the values of the Hadamard transform as either red or green for negative 
-              and positive values respectively. The brighter the color, the higher the valus is.
+              and positive values respectively. The brighter the color, the higher the value is.
             </p>
           </v-card-text>
         </v-card>
