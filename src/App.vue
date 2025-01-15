@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <RhythmVisualizer modelValue="AAAA" />
+      <RhythmSelector modelValue="AAAA" />
     </v-main>
   </v-app>
 </template>

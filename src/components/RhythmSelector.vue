@@ -17,7 +17,6 @@
         :viewBox="'0 0 100 ' +(100.0/this.columns)"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <!-- Draw grid -->
         <rect
           v-for="(active, index) in rhythmArray"
           :key="index"
@@ -29,7 +28,6 @@
           @click="toggleCell(index)"
           stroke="black"
         />
-        <!-- Draw midpoints -->
         <circle
           v-for="(mid, index) in midPoints"
           :key="'mid-' + index"
@@ -38,7 +36,6 @@
           r="2%"
           fill="yellow"
         />
-        <!-- Draw contour values -->
         <text
           v-for="(index, i) in combArr"
           :key="'note-' + index"
@@ -48,7 +45,6 @@
           fill="black"
           text-anchor="middle"
           dominant-baseline="middle">{{this.contour[i]}}</text>
-        <!-- Draw shadow contour values -->
         <text
           v-for="(mid, index) in midPoints"
           :key="'shadow-' + index"
