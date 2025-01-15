@@ -44,7 +44,7 @@
           :key="'note-' + index"
           :x="(index * cellSize)+this.cellSize/2.0"
           :y="this.cellSize/2.0"
-          font-size="12"
+          font-size="1"
           fill="black"
           text-anchor="middle"
           dominant-baseline="middle"
@@ -57,7 +57,7 @@
           :key="'shadow-' + index"
           :x="mid.x"
           :y="this.cellSize/2.0"
-          font-size="12"
+          font-size="1"
           fill="green"
           text-anchor="middle"
           dominant-baseline="middle"
@@ -107,6 +107,7 @@ export default {
       return this.rhythmArray.length;
     },
     contour() {
+      console.log((new Natural(Name.Hexadecimal,this.hexString)).getContour());
       return (new Natural(Name.Hexadecimal,this.hexString)).getContour();
     },
     shadowContour() {

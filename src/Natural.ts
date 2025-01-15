@@ -84,14 +84,14 @@ export class Natural extends Array<string> {
         const bn = this.toBinaryNatural();
         
         if (bn.cardinality() === 0) return new Sequence();
-        return (new Sequence(...Composition.compositionFromCombination(bn).getCompositionAsArray().reverse()))
+        return (new Sequence(...Composition.compositionFromCombination(bn).getCompositionAsArray()))
             .cyclicalDifference().signs();
     }
 
     getShadowContour(): Sequence {
         const combination = this.toBinaryNatural();
         if (combination.cardinality() === 0) return new Sequence();
-        const a = Composition.compositionFromCombination(combination).getCompositionAsArray().reverse();
+        const a = Composition.compositionFromCombination(combination).getCompositionAsArray();
         const mid = new Sequence();
         for (let i = 1; i <= a.length; i++) {
             mid.add(a[i - 1] + a[i % a.length]);
