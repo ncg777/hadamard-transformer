@@ -1,27 +1,23 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <svg
-        :width="this.width"
-        :height="this.height"
-        :viewBox="'-2 -2 ' + (this.cellSize+4) + ' 104'"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          v-for="(v, index) in spectrum"
-          :key="index"
-          :x="0"
-          :y="(index * cellSize)"
-          :width="cellSize"
-          :height="cellSize"
-          :fill="'rgb(' + (255*v)+ ',' + (255*v) + ', ' + (255*v) +')'"
-          :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
-          stroke-width="1"
-        />
-        
-      </svg>
-    </v-row>
-  </v-container>
+  <svg
+    :width="this.width"
+    :height="this.height"
+    :viewBox="'-2 -2 ' + (this.cellSize+4) + ' 104'"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      v-for="(v, index) in spectrum"
+      :key="index"
+      :x="0"
+      :y="(index * cellSize)"
+      :width="cellSize"
+      :height="cellSize"
+      :fill="'rgb(' + (255*v)+ ',' + (255*v) + ', ' + (255*v) +')'"
+      :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
+      :stroke-width="cellSize/20"
+    />
+    
+  </svg>
 </template>
 
 <script>

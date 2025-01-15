@@ -2,7 +2,10 @@
   <v-app>
     <v-main>
       <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" /><br />
-      <RhythmDFT :value="hexRhythm" :height="'35vh'" />
+      
+        <v-row justify="center">
+          <RhythmDFT :value="hexRhythm" :height="'65vh'" />
+        </v-row>
     </v-main>
   </v-app>
 </template>
