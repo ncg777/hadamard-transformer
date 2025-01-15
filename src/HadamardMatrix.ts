@@ -51,4 +51,10 @@ export class HadamardMatrix extends Matrix<number> {
     public getOrder(): number {
         return Math.round(Math.log2(this.columnCount()));
     }
+
+    public transform(arr:number[]) {
+        const n = Math.log2(arr.length);
+        if(Math.pow(2,n) != arr.length) return;
+        return this.product(new Matrix<number>([arr]),0.0, (a,b) => a+b, (a,b) => a*b).getColumn(0);
+    }
 }
