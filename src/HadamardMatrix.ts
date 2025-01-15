@@ -43,17 +43,18 @@ export class HadamardMatrix extends Matrix<number> {
             const key = new Sequence(...sequence.difference().toArray().map((n) => n === 0 ? 0 : 1)).sum();
             rowsMap.set(key, this.getRow(i));
         }
-        
-        return new Matrix<number>([...rowsMap.keys()].map((key) => rowsMap.get(key)!));
+        const keys = [...rowsMap.keys()];
+        keys.sort((a:number,b:number)=>a-b);
+        return new Matrix<number>(keys.map((key) => rowsMap.get(key)!));
     }
 
     public getOrder(): number {
         return Math.round(Math.log2(this.columnCount()));
     }
 
-    public transform(arr:number[], sequency:boolean) {
+    public transform(arr:number[], sequency:boolean):number[] {
         const n = Math.log2(arr.length);
-        if(Math.pow(2,n) != arr.length) return;
+        if(Math.pow(2,n) != arr.length) return [];
 
         return (sequency ? this.sortSequency() : this).product(new Matrix<number>([arr]).getTranspose(),0.0, (a,b) => a+b, (a,b) => a*b).getColumn(0);
     }

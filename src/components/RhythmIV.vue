@@ -34,7 +34,7 @@ import { Natural } from "../Natural";
 import { Name } from '../Cipher';
 
 export default {
-  name: "RhythmVisualizer",
+  name: "RhythmIV",
   props: {
     value: {
       type: String,

@@ -1,23 +1,29 @@
 <template>
-  <v-app>
+  <v-app  >
     <v-main>
-      <!-- Help Button floating at top right -->
-      <v-btn
-        color="primary"
-        floating
-        @click="showHelpModal"
-        class="help-button"
-      >?</v-btn>
-      <h1 style="text-align: center;">Rhythm Analyzer</h1>
       
-      <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" /><br />
-      <v-row justify="center">
-        <v-col cols="12" md="12">
-          <div style="text-align: center;">
-            Interval vector
-          </div>
-          <div style="text-align: center;">
+      <v-btn
+          color="primary"
+          floating
+          @click="showHelpModal"
+          class="help-button"
+        >?</v-btn>
+      <v-row justify="center" style="max-width: 95vw;padding-top: 3vh;">
+        
+        <h1 style="text-align: center;">Rhythm Analyzer</h1>
+        <v-col cols="12">
+          <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" />
+        </v-col>
+        <v-col cols="3">
+          <div>
+            <h3>IV</h3>
             <RhythmIV :value="hexRhythm" :height="'65vh'" :width="'100%'" />
+          </div>
+        </v-col>
+        <v-col cols="9">
+          <div >
+            <h3>Hadamard</h3>
+            <RhythmHadamard :value="hexRhythm" :height="'65vh'" :width="'100%'" />
           </div>
         </v-col>
       </v-row>
@@ -46,7 +52,7 @@
             <p>
               The shadow is also displayed as circles with their corresponding shadow contour values.
             </p>
-            <h3>Interval vector</h3>
+            <h3>IV (Interval vector)</h3>
             <p>
               Below is the normalized interval vector of the rhythm:
             </p>
@@ -55,6 +61,14 @@
               <li>Higher frequencies are on top and borders are blue.</li>
               <li>A higher energy level means a whiter cell content.</li>
             </ul>
+            <h3>Hadamard</h3>
+            <p>
+              Displays the Hadamard matrix for the rhythm if any.
+            </p>
+            <p>
+              The color scheme encodes the values of the Hadamard transform as either red or green for negative 
+              and positive values respectively. The brighter the color, the higher the valus is.
+            </p>
           </v-card-text>
         </v-card>
       </v-dialog>
@@ -81,8 +95,12 @@ function showHelpModal() {
 
 <style scoped>
 .help-button {
+  position: absolute;
   float: right;
-  margin-right: 10px;
+  right: 5vw;
   margin-top: 10px;
+}
+h3 {
+  text-align: center;
 }
 </style>

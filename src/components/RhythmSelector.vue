@@ -36,6 +36,7 @@
           :cy="mid.y-0.05*this.cellSize"
           :r="cellSize/3"
           fill="darkgrey"
+          @click="toggleCell(index)"
         />
         <text
           v-for="(index, i) in combArr"
@@ -43,6 +44,7 @@
           :x="(index * cellSize)+this.cellSize/2.0"
           :y="this.cellSize/2.0"
           :font-size="0.5*cellSize"
+          @click="toggleCell(index)"
           fill="black"
           text-anchor="middle"
           dominant-baseline="middle">{{this.contour[i]}}</text>
@@ -55,6 +57,7 @@
           fill="white"
           text-anchor="middle"
           dominant-baseline="middle"
+          @click="toggleCell(index)"
         >{{this.shadowContour[index]}}</text>
       </svg>
     </v-row>
