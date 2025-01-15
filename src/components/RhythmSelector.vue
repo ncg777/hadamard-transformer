@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     onHexStringChange() {
-      this.$emit("update:modelValue", this.hexString);
+      this.$emit("update:value", this.hexString);
     },
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
@@ -160,7 +160,7 @@ export default {
 
       ra[index] = 1 - this.rhythmArray[index];
       this.hexString = (new BinaryNatural(ra).reverse()).toNatural(Name.Hexadecimal).toString();
-      this.$emit("update:modelValue", this.hexString);
+      this.onHexStringChange();
     },
   }
 };

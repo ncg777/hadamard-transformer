@@ -46,7 +46,7 @@ export class Sequence{
 
     cyclicalDifference(): Sequence {
         if (this.size() < 2) {
-            throw new Error("Cyclical difference requires at least two elements.");
+            return new Sequence(...[0]);
         }
         const output = this.items.map((item, index) => {
             return this.items[(index + 1) % this.size()] - item;
