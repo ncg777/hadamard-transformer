@@ -8,6 +8,8 @@
         @click="showHelpModal"
         class="help-button"
       >?</v-btn>
+      <h1 style="text-align: center;">Rhythm Analyzer</h1>
+      
       <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" /><br />
       <v-row justify="center">
         <v-col cols="12" md="12">
@@ -15,7 +17,7 @@
             Interval vector
           </div>
           <div style="text-align: center;">
-            <RhythmIV :value="hexRhythm" :height="'65vh'" />
+            <RhythmIV :value="hexRhythm" :height="'60vh'" />
           </div>
         </v-col>
       </v-row>
