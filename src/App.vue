@@ -16,7 +16,7 @@
           <div style="text-align: center;">
             Interval vector
           </div>
-          <div style="text-align: center;height: 50vh;">
+          <div style="text-align: center;">
             <RhythmIV :value="hexRhythm" :height="'65vh'" :width="'100%'" />
           </div>
         </v-col>
