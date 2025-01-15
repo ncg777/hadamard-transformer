@@ -10,8 +10,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const hexRhythm = ref("A8A88A8A");
+const hexRhythm = ref(localStorage.getItem("rhythm") ?? "A8A88A8A");
 function updateHexRhythm(newValue:string) {
   hexRhythm.value = newValue;
+  localStorage.setItem("rhythm",newValue);
 }
 </script>
