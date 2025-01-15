@@ -26,6 +26,7 @@ export default defineConfig({
       },
     }),
   ],
+  base:'/rhythm-analyzer/',
   define: { 'process.env': {} },
   resolve: {
     alias: {

@@ -1,6 +1,6 @@
 {
   "name": "rhythm-analyzer",
-  "private": true,
+  "homepage": "https://github.com/ncg777/rhythm-analyzer",
   "type": "module",
   "version": "2025.1.14",
   "scripts": {
