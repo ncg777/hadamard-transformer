@@ -69,7 +69,7 @@ import { Composition } from 'ultra-mega-enumerator';
 export default {
   name: "RhythmVisualizer",
   props: {
-    modelValue: {
+    value: {
       type: String,
       required: true,
     },
@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      hexString: this.modelValue,
+      hexString: this.value,
     };
   },
   computed: {
@@ -143,7 +143,7 @@ export default {
     },
   },
   watch: {
-    modelValue(newValue) {
+    value(newValue) {
       this.hexString = newValue;
       this.onHexStringChange();
     },
@@ -162,14 +162,6 @@ export default {
       this.hexString = (new BinaryNatural(ra).reverse()).toNatural(Name.Hexadecimal).toString();
       this.$emit("update:modelValue", this.hexString);
     },
-    binaryToHex(binaryArray) {
-      const binaryString = binaryArray.join("");
-      return Array.from(
-        { length: binaryString.length / 4 },
-        (_, i) =>
-          parseInt(binaryString.slice(i * 4, i * 4 + 4), 2).toString(16)
-      ).join("");
-    }
   }
 };
 </script>
