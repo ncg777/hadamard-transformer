@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="12">
         <v-text-field
           v-model="hexString"
           label="Enter Rhythm (Hexadecimal)"
@@ -14,7 +14,7 @@
       <svg
         :width="this.width"
         :height="this.height"
-        :viewBox="'-10 0 110 ' +(this.cellSize)"
+        :viewBox="'-2 0 104 ' +(this.cellSize)"
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
