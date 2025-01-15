@@ -11,64 +11,60 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="12" md="12">
-        <div class="rv">
-        <svg
-          width="svgWidth"
-          height="svgHeight"
-          :viewBox="'0 0 100 ' + (100/this.columns)"
-          xmlns="http://www.w3.org/2000/svg"
+      <svg
+        :width="this.width"
+        :height="this.height"
+        :viewBox="'0 0 100 ' +(100.0/this.columns)"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- Draw grid -->
+        <rect
+          v-for="(active, index) in rhythmArray"
+          :key="index"
+          :x="(index * cellSize)"
+          :y="0"
+          :width="cellSize"
+          :height="cellSize"
+          :fill="active ? 'green' : 'lightgray'"
+          @click="toggleCell(index)"
+          stroke="black"
+        />
+        <!-- Draw midpoints -->
+        <circle
+          v-for="(mid, index) in midPoints"
+          :key="'mid-' + index"
+          :cx="mid.x"
+          :cy="mid.y"
+          r="0.5%"
+          fill="yellow"
+        />
+        <!-- Draw contour values -->
+        <text
+          v-for="(index, i) in combArr"
+          :key="'note-' + index"
+          :x="(index * cellSize)+this.cellSize/2.0"
+          :y="this.cellSize/2.0"
+          font-size="12"
+          fill="black"
+          text-anchor="middle"
+          dominant-baseline="middle"
         >
-          <!-- Draw grid -->
-          <rect
-            v-for="(active, index) in rhythmArray"
-            :key="index"
-            :x="(index * cellSize)"
-            :y="0"
-            :width="cellSize"
-            :height="cellSize"
-            :fill="active ? 'green' : 'lightgray'"
-            @click="toggleCell(index)"
-            stroke="black"
-          />
-          <!-- Draw midpoints -->
-          <circle
-            v-for="(mid, index) in midPoints"
-            :key="'mid-' + index"
-            :cx="mid.x"
-            :cy="mid.y"
-            r="0.5%"
-            fill="yellow"
-          />
-          <!-- Draw contour values -->
-          <text
-            v-for="(note, index) in contourValues"
-            :key="'note-' + index"
-            :x="note.x"
-            :y="note.y"
-            font-size="12"
-            fill="black"
-            text-anchor="middle"
-            dominant-baseline="middle"
-          >
-            {{ note.value }}
-          </text>
-          <!-- Draw shadow contour values -->
-          <text
-            v-for="(mid, index) in shadowContourValues"
-            :key="'shadow-' + index"
-            :x="mid.x+'%'"
-            :y="mid.y+'vh'"
-            font-size="12"
-            fill="green"
-            text-anchor="middle"
-            dominant-baseline="middle"
-          >
-            {{ mid.value }}
-          </text>
-        </svg>
-      </div>
-      </v-col>
+          {{ contour[i] }}
+        </text>
+        <!-- Draw shadow contour values -->
+        <text
+          v-for="(mid, index) in midPoints"
+          :key="'shadow-' + index"
+          :x="mid.x"
+          :y="this.cellSize/2.0"
+          font-size="12"
+          fill="green"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >
+          {{ shadowContour[index] }}
+        </text>
+      </svg>
     </v-row>
   </v-container>
 </template>
@@ -87,12 +83,12 @@ export default {
       required: true,
     },
     width: {
-      type: Number,
-      default: 100
+      type: String,
+      default: "100%"
     },
     height: {
-      type: Number,
-      default: 10 
+      type: String,
+      default: "5%" 
     },
   },
   data() {
@@ -107,12 +103,6 @@ export default {
     cellSize() {
       return (100.0/this.columns);
     },
-    svgWidth() {
-      return '100%';
-    },
-    svgHeight() {
-      return this.height + 'vh';
-    },
     columns() {
       return this.rhythmArray.length;
     },
@@ -122,18 +112,21 @@ export default {
     shadowContour() {
       return (new Natural(Name.Hexadecimal,this.hexString)).getShadowContour();
     },
-    gridSize() {
-      return this.columns * this.cellSize;
+    comb() {
+      return new BinaryNatural(this.rhythmArray);
+    },
+    combArr() { 
+      return this.comb.getCombinationAsArray();
+    },
+    comp() {
+      return Composition.compositionFromCombination(this.comb).getCompositionAsArray();
     },
     midPoints() {
       const points = [];
-      const comb = new BinaryNatural(this.rhythmArray);
-      const combarr = comb.getCombinationAsArray();
-      const comp = Composition.compositionFromCombination(comb).getCompositionAsArray();
-      for(let i=0; i< combarr.length;i++) {
-        let x = (combarr[i]+(comp[i]/2.0));
+      for(let i=0; i< this.combArr.length;i++) {
+        let x = (this.combArr[i]+(this.comp[i]/2.0));
         if(x >= this.columns) x -= this.columns;
-        x = (x/this.columns)*this.width;
+        x = (100.0*x/this.columns);
         points.push({
             x: x,
             y: this.cellSize/2.0,
@@ -193,8 +186,5 @@ export default {
 <style scoped>
 svg {
   border: 1px solid black;
-}
-.rv{
-  height: 10vh;
 }
 </style>
