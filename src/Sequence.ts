@@ -45,7 +45,10 @@ export class Sequence{
     }
 
     cyclicalDifference(): Sequence {
-        if (this.size() < 2) {
+        if (this.size() == 0) {
+            return new Sequence();
+        }
+        if (this.size() == 1) {
             return new Sequence(...[0]);
         }
         const output = this.items.map((item, index) => {
