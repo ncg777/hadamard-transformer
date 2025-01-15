@@ -55,6 +55,6 @@ export class HadamardMatrix extends Matrix<number> {
         const n = Math.log2(arr.length);
         if(Math.pow(2,n) != arr.length) return;
 
-        return (sequency ? this.sortSequency() : this).product(new Matrix<number>([arr]),0.0, (a,b) => a+b, (a,b) => a*b).getColumn(0);
+        return (sequency ? this.sortSequency() : this).product(new Matrix<number>([arr]).getTranspose(),0.0, (a,b) => a+b, (a,b) => a*b).getColumn(0);
     }
 }
