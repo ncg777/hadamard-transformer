@@ -4,7 +4,7 @@
       <v-col cols="12" md="12">
         <v-text-field
           v-model="hexString"
-          label="Enter Rhythm (Hexadecimal)"
+          label="Rhythm (Hexadecimal)"
           outlined
           @input="onHexStringChange"
         />
