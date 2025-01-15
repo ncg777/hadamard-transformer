@@ -12,10 +12,10 @@
       <v-row justify="center">
         <v-col cols="12" md="12">
           <div style="text-align: center;">
-            DFT
+            Interval vector
           </div>
           <div style="text-align: center;">
-            <RhythmDFT :value="hexRhythm" :height="'65vh'" />
+            <RhythmIV :value="hexRhythm" :height="'65vh'" />
           </div>
         </v-col>
       </v-row>
@@ -44,9 +44,9 @@
             <p>
               The shadow is also displayed as circles with their corresponding shadow contour values.
             </p>
-            <h3>DFT</h3>
+            <h3>Interval vector</h3>
             <p>
-              Below is the DFT of the rhythm:
+              Below is the normalized interval vector of the rhythm:
             </p>
             <ul>
               <li>Lower frequencies are at the bottom and borders are red.</li>

@@ -16,6 +16,15 @@
       :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
       :stroke-width="cellSize/20"
     />
+    <text
+      v-for="(v, index) in spectrum"
+      :key="'specval-' + index"
+      :x="this.cellSize/2.0"
+      :y="(index * cellSize)+(this.cellSize/2.0)"
+      font-size="2"
+      :fill="'rgb(' + (255*(1.0-Math.round(v)))+ ',' + (255*(1.0-Math.round(v))) + ', ' + (255*(1.0-Math.round(v))) +')'"
+      text-anchor="middle"
+      dominant-baseline="middle">{{ this.spectrum[index].toFixed(4) }}</text>
   </svg>
 </template>
 

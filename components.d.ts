@@ -7,7 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    RhythmDFT: typeof import('./src/components/RhythmDFT.vue')['default']
+    RhythmIV: typeof import('./src/components/RhythmIV.vue')['default']
     RhythmSelector: typeof import('./src/components/RhythmSelector.vue')['default']
   }
 }
