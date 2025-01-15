@@ -4,7 +4,9 @@ export class Sequence{
     constructor(...items: number[]) {
         this.items = items??[];
     }
-    
+    toString() {
+        return this.toArray().join(' ');
+    }
     add(item: number) {
         this.items.push(item);
     }

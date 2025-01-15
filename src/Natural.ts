@@ -81,22 +81,22 @@ export class Natural extends Array<string> {
     }
 
     getContour(): Sequence {
-        const bn = this.toBinaryNatural();
+        const bn = this.toBinaryNatural().reverse();
         
         if (bn.cardinality() === 0) return new Sequence();
-        return (new Sequence(...Composition.compositionFromCombination(bn).getCompositionAsArray()))
-            .cyclicalDifference().signs();
+        const s = new Sequence(...Composition.compositionFromCombination(bn).getCompositionAsArray().reverse());
+        return new Sequence(...s.cyclicalDifference().signs().toArray());
     }
 
     getShadowContour(): Sequence {
-        const combination = this.toBinaryNatural();
+        const combination = this.toBinaryNatural().reverse();
         if (combination.cardinality() === 0) return new Sequence();
-        const a = Composition.compositionFromCombination(combination).getCompositionAsArray();
+        const a = Composition.compositionFromCombination(combination).getCompositionAsArray().reverse();
         const mid = new Sequence();
         for (let i = 1; i <= a.length; i++) {
             mid.add(a[i - 1] + a[i % a.length]);
         }
-        return mid.cyclicalDifference().signs();
+        return new Sequence(...mid.cyclicalDifference().signs().toArray());
     }
 
     toBitstring(): string {

@@ -35,7 +35,7 @@
           :key="'mid-' + index"
           :cx="mid.x"
           :cy="mid.y"
-          r="0.5%"
+          r="2%"
           fill="yellow"
         />
         <!-- Draw contour values -->
@@ -47,10 +47,7 @@
           font-size="1"
           fill="black"
           text-anchor="middle"
-          dominant-baseline="middle"
-        >
-          {{ contour[i] }}
-        </text>
+          dominant-baseline="middle">{{this.contour[i]}}</text>
         <!-- Draw shadow contour values -->
         <text
           v-for="(mid, index) in midPoints"
@@ -58,12 +55,10 @@
           :x="mid.x"
           :y="this.cellSize/2.0"
           font-size="1"
-          fill="green"
+          fill="black"
           text-anchor="middle"
           dominant-baseline="middle"
-        >
-          {{ shadowContour[index] }}
-        </text>
+        >{{this.shadowContour[index]}}</text>
       </svg>
     </v-row>
   </v-container>
@@ -107,11 +102,10 @@ export default {
       return this.rhythmArray.length;
     },
     contour() {
-      console.log((new Natural(Name.Hexadecimal,this.hexString)).getContour());
-      return (new Natural(Name.Hexadecimal,this.hexString)).getContour();
+      return (new Natural(Name.Hexadecimal,this.hexString)).getContour().toArray();
     },
     shadowContour() {
-      return (new Natural(Name.Hexadecimal,this.hexString)).getShadowContour();
+      return (new Natural(Name.Hexadecimal,this.hexString)).getShadowContour().toArray();
     },
     comb() {
       return new BinaryNatural(this.rhythmArray);
