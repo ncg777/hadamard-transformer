@@ -17,18 +17,18 @@
         <v-col cols="3">
           <div>
             <h3>IV</h3>
-            <RhythmIV :value="hexRhythm" :height="'65vh'" :width="'100%'" />
+            <RhythmIV :value="hexRhythm" :height="'55vh'" :width="'100%'" />
           </div>
         </v-col>
         <v-col cols="9">
           <div >
             <h3>Hadamard</h3>
-            <RhythmHadamard :value="hexRhythm" :height="'65vh'" :width="'100%'" />
+            <RhythmHadamard :value="hexRhythm" :height="'55vh'" :width="'100%'" />
           </div>
         </v-col>
       </v-row>
       <!-- Help Modal -->
-      <v-dialog v-model="isHelpModalOpen" persistent max-width="600px" hide-overlay>
+      <v-dialog v-model="isHelpModalOpen" persistent max-width="50vw" hide-overlay>
         <v-card >
           <v-card-title class="headline">
             Rhythm Analyzer
@@ -63,10 +63,10 @@
             </ul>
             <h3>Hadamard</h3>
             <p>
-              Displays the Hadamard matrix for the rhythm if any.
+              Displays the Hadamard matrix in sequency order for the rhythm if any.
             </p>
             <p>
-              The color scheme encodes the values of the Hadamard transform as either red or green for negative 
+              The color scheme encodes the values of the Hadamard transform of the rhythm as either red or green for negative 
               and positive values respectively. The brighter the color, the higher the value is.
             </p>
           </v-card-text>
