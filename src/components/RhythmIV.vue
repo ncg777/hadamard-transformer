@@ -2,7 +2,7 @@
   <svg
     :width="this.width"
     :height="this.height"
-    :viewBox="'-2 -2 ' + (this.cellSize+4) + ' 104'"
+    :viewBox="'-2 -2 ' + (2.0*this.cellSize+4) + ' 104'"
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect
@@ -10,7 +10,7 @@
       :key="index"
       :x="0"
       :y="(index * cellSize)"
-      :width="cellSize"
+      :width="cellSize*2"
       :height="cellSize"
       :fill="'rgb(' + (255*v)+ ',' + (255*v) + ', ' + (255*v) +')'"
       :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
@@ -19,9 +19,9 @@
     <text
       v-for="(v, index) in spectrum"
       :key="'specval-' + index"
-      :x="this.cellSize/2.0"
+      :x="this.cellSize"
       :y="(index * cellSize)+(this.cellSize/2.0)"
-      font-size="2"
+      :font-size="cellSize/2.0"
       :fill="'rgb(' + (255*(1.0-Math.round(v)))+ ',' + (255*(1.0-Math.round(v))) + ', ' + (255*(1.0-Math.round(v))) +')'"
       text-anchor="middle"
       dominant-baseline="middle">{{ this.spectrum[index].toFixed(4) }}</text>

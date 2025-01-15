@@ -32,9 +32,9 @@
         <circle
           v-for="(mid, index) in midPoints"
           :key="'mid-' + index"
-          :cx="mid.x"
-          :cy="mid.y"
-          :r="cellSize/4"
+          :cx="mid.x-0.05*this.cellSize"
+          :cy="mid.y-0.05*this.cellSize"
+          :r="cellSize/3"
           fill="darkgrey"
         />
         <text
@@ -42,16 +42,16 @@
           :key="'note-' + index"
           :x="(index * cellSize)+this.cellSize/2.0"
           :y="this.cellSize/2.0"
-          font-size="1"
+          :font-size="0.5*cellSize"
           fill="black"
           text-anchor="middle"
           dominant-baseline="middle">{{this.contour[i]}}</text>
         <text
           v-for="(mid, index) in midPoints"
           :key="'shadow-' + index"
-          :x="mid.x"
-          :y="this.cellSize/2.0"
-          font-size="1"
+          :x="mid.x-0.05*this.cellSize"
+          :y="mid.y"
+          :font-size="0.5*cellSize"
           fill="white"
           text-anchor="middle"
           dominant-baseline="middle"
