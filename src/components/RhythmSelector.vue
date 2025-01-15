@@ -22,12 +22,12 @@
           :key="index"
           :x="(index * cellSize)"
           :y="0"
-          :width="0.95*cellSize"
-          :height="0.95*cellSize"
+          :width="0.9*cellSize"
+          :height="0.9*cellSize"
           :fill="active ? 'white' : 'black'"
           @click="toggleCell(index)"
-          :stroke="index%16==0?'darkgrey':'lightgrey'"
-          :stroke-width="cellSize/20"
+          :stroke="index%16==0?'gold':'lightgrey'"
+          :stroke-width="cellSize/10"
         />
         <circle
           v-for="(mid, index) in midPoints"
