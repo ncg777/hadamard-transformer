@@ -2,10 +2,16 @@
   <v-app>
     <v-main>
       <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" /><br />
-      
-        <v-row justify="center">
-          <RhythmDFT :value="hexRhythm" :height="'65vh'" />
-        </v-row>
+      <v-row justify="center">
+        <v-col cols="12" md="12">
+          <div style="text-align: center;">
+            DFT
+          </div>
+          <div style="text-align: center;">
+            <RhythmDFT :value="hexRhythm" :height="'65vh'" />
+          </div>
+        </v-col>
+      </v-row>
     </v-main>
   </v-app>
 </template>

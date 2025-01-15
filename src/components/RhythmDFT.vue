@@ -16,7 +16,6 @@
       :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
       :stroke-width="cellSize/20"
     />
-    
   </svg>
 </template>
 
