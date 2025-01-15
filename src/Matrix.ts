@@ -231,4 +231,18 @@ export class Matrix<T> {
     
         return array;
     }
+
+    public getTranspose(): Matrix<T> {
+        // Create a new matrix with switched dimensions
+        const transposedMatrix = new Matrix<T>(Array.from({ length: this.n }, () => Array(this.m).fill(this.defaultValue as T)));
+    
+        // Fill the transposed matrix with values from the original matrix
+        for (let i = 0; i < this.m; i++) {
+            for (let j = 0; j < this.n; j++) {
+                transposedMatrix.set(j, i, this.get(i, j) as T); // Set transposed element
+            }
+        }
+    
+        return transposedMatrix; // Return the transposed matrix
+    }
 }
