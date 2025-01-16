@@ -95,7 +95,7 @@ function showHelpModal() {
 <style scoped>
 .help-link {
   position: absolute;
-  right: 3vh;
+  right: 0;
   top: 0;
   font-size: 20pt;
   color: #00ff00;
