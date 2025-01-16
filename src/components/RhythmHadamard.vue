@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       hexString: this.value,
-      previousState:null,
+      undoStack:[],
     };
   },
   computed: {
@@ -97,7 +97,7 @@ export default {
       return this.hexString.replace(/\s+/g,'').length*4;
     },
     canUndo() {
-      return this.previousState !== null; // Check if there's a saved previous state
+      return this.undoStack.length > 0; // Check if there's a saved previous state
     }
   },
   watch: {
@@ -111,13 +111,12 @@ export default {
       this.$emit("update:value", this.hexString);
     },
     saveState() {
-      this.previousState = this.hexString; // Save the current state
+      this.undoStack.push(this.hexString); // Push current state to the stack
     },
     undo() {
       if (this.canUndo) {
-        this.hexString = this.previousState; // Restore the previous state
+        this.hexString = this.undoStack.pop(); // Restore the last state from the stack
         this.onHexStringChange(); // Emit the change
-        this.previousState = null; // Clear the previous state after undo
       }
     },
     minus(rowIndex) {
