@@ -17,8 +17,7 @@
         </v-col>
         <v-col cols="9">
           <div >
-            <h3 style="text-align: center; width:100%">Hadamard</h3>
-            <RhythmHadamard :value="hexRhythm" :height="'45vh'" :width="'100%'" @update:value="updateHexRhythm" />
+            <RhythmHadamard :value="hexRhythm" :height="'48vh'" :width="'100%'" @update:value="updateHexRhythm" />
           </div>
         </v-col>
       </v-row>
