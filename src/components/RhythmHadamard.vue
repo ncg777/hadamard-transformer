@@ -12,7 +12,7 @@
         v-for="(cell, colIndex) in row"
         :key="colIndex"
         :x="colIndex * cellSize"
-        :y="(rows-1-rowIndex) * cellSize"
+        :y="rowIndex * cellSize"
         :width="cellSize*0.975"
         :height="cellSize*0.975"
         :fill="cell === 1 ? color(transformNorm[rowIndex],rowIndex,colIndex) : 'black'"
