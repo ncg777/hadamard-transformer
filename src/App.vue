@@ -3,7 +3,7 @@
     <v-main :style="'padding:2vw; max-width: 95vw;padding-top: 3vh; position:relative;'">
       <a @click.prevent="showHelpModal" class="help-link">?</a>
       <v-row>
-        <h1 style="text-align: center; width:100%">Hadamard transformer</h1>
+        <h1 style="text-align: center; width:100%">Hadamard Transformer</h1>
         <v-col cols="12">
           <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" />
         </v-col>
@@ -26,7 +26,7 @@
       <v-dialog v-model="isHelpModalOpen" persistent hide-overlay>
         <v-card >
           <v-card-title class="headline">
-            Rhythm Analyzer
+            Hadamard Transformer Help
             <v-btn
               icon
               @click="isHelpModalOpen = false"
