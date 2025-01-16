@@ -19,7 +19,7 @@
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
         :stroke-width="cellSize/40"
       />
-      <text
+      <text v-if="rowIndex>0"
       :key="'minus-' + rowIndex"
       :x="(rows+0.5)*cellSize"
       :y="(rowIndex * cellSize)+(cellSize/2.0)"
@@ -29,7 +29,7 @@
       dominant-baseline="middle"
       style="cursor: pointer;"
       @click="minus(rowIndex)">-</text>
-      <text
+      <text v-if="rowIndex>0"
       :key="'plus-' + rowIndex"
       :x="(rows+1.5)*cellSize"
       :y="(rowIndex * cellSize)+(cellSize/2.0)"
@@ -126,7 +126,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
         t[rowIndex]--;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -136,7 +136,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] < c) {
         t[rowIndex]++;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -144,7 +144,8 @@ export default {
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
     },
-    color(x, rowIndex,colIndex) {
+    color(_x, rowIndex,colIndex) {
+      const x = _x;
       const h = this.hadamard.get(rowIndex,colIndex) == 1 ? 1 : 0;
       const r = (x < 0 ? Math.abs(x) : 0)*255;
       const g = (x > 0 ? x : 0)*255;
