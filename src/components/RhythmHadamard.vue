@@ -4,7 +4,7 @@
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
-    :viewBox="'-2 -2 ' + (((this.rows+2)*this.cellSize).toFixed(4)+4)+ ' 104'"
+    :viewBox="'-2 -2 ' + (((this.rows+3)*this.cellSize).toFixed(4)+4)+ ' 104'"
     xmlns="http://www.w3.org/2000/svg"
   >
   <g v-for="(row, rowIndex) in hadamardArr" :key="rowIndex">
