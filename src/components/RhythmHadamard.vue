@@ -20,20 +20,21 @@
       :key="'minus-' + rowIndex"
       :x="(rows+0.5)*cellSize"
       :y="(rowIndex * cellSize)+(cellSize/2.0)"
-      :font-size="cellSize/2.0"
+      :font-size="cellSize"
       :fill="'rgb(255,0,0)'"
       text-anchor="middle"
-      dominant-baseline="middle" 
+      dominant-baseline="middle"
+      style="cursor: pointer;"
       @click="minus(rowIndex)">-</text>
-      
       <text
       :key="'plus-' + rowIndex"
       :x="(rows+1.5)*cellSize"
       :y="(rowIndex * cellSize)+(cellSize/2.0)"
-      :font-size="cellSize/2.0"
+      :font-size="cellSize"
       :fill="'rgb(0,255,0)'"
       text-anchor="middle"
-      dominant-baseline="middle" 
+      dominant-baseline="middle"
+      style="cursor: pointer;"
       @click="plus(rowIndex)">+</text>
     </g>
   </svg>
@@ -108,7 +109,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
         t[rowIndex]--;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -117,7 +118,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] < c) {
         t[rowIndex]++;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
