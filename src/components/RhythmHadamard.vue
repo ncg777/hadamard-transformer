@@ -4,7 +4,7 @@
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
-    :viewBox="'-2 -2 ' + (((this.rows+3)*this.cellSize).toFixed(4)+4)+ ' 104'"
+    :viewBox="'-2 -2 ' + (((this.rows+4)*this.cellSize).toFixed(4)+4)+ ' 104'"
     xmlns="http://www.w3.org/2000/svg"
   >
   <g v-for="(row, rowIndex) in hadamardArr" :key="rowIndex">
@@ -15,7 +15,7 @@
         :y="rowIndex * cellSize"
         :width="cellSize*0.975"
         :height="cellSize*0.975"
-        :fill="cell === 1 ? color(transformNorm[rowIndex],rowIndex,colIndex) : 'black'"
+        :fill="cell === 1 ? color(Math.sqrt(transformNorm[rowIndex]),rowIndex,colIndex) : 'black'"
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
         :stroke-width="cellSize/40"
       />
@@ -30,8 +30,18 @@
       style="cursor: pointer;"
       @click="minus(rowIndex)">-</text>
       <text v-if="rowIndex>0"
-      :key="'plus-' + rowIndex"
+      :key="'zero-' + rowIndex"
       :x="(rows+1.5)*cellSize"
+      :y="(rowIndex * cellSize)+(cellSize/2.0)"
+      :font-size="cellSize"
+      :fill="'rgb(255,255,0)'"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      style="cursor: pointer;"
+      @click="zero(rowIndex)">0</text>
+      <text v-if="rowIndex>0"
+      :key="'plus-' + rowIndex"
+      :x="(rows+2.5)*cellSize"
       :y="(rowIndex * cellSize)+(cellSize/2.0)"
       :font-size="cellSize"
       :fill="'rgb(0,255,0)'"
@@ -126,7 +136,17 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
         t[rowIndex]--;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.onHexStringChange();
+      }
+    },
+    zero(rowIndex) {
+      this.saveState();
+      const t = this.transform.splice(0);
+      const c = this.cardinality;
+      if(t[rowIndex] > 0 || t[rowIndex] < 0) {
+        t[rowIndex] = 0;
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -136,7 +156,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] < c) {
         t[rowIndex]++;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
