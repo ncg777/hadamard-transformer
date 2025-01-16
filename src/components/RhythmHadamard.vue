@@ -13,10 +13,11 @@
         :key="colIndex"
         :x="colIndex * cellSize"
         :y="(rows-1-rowIndex) * cellSize"
-        :width="cellSize"
-        :height="cellSize"
-        :fill="cell === 1 ? color(transformNorm[rowIndex],rowIndex) : 'black'"
-        :stroke="0"
+        :width="cellSize*0.975"
+        :height="cellSize*0.975"
+        :fill="cell === 1 ? color(transformNorm[rowIndex],rowIndex,colIndex) : 'black'"
+        :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
+        :stroke-width="cellSize/40"
       />
       <text
       :key="'minus-' + rowIndex"
@@ -143,10 +144,11 @@ export default {
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
     },
-    color(x, rowIndex) {
+    color(x, rowIndex,colIndex) {
+      const h = this.hadamard.get(rowIndex,colIndex) == 1 ? 1 : 0;
       const r = (x < 0 ? Math.abs(x) : 0)*255;
       const g = (x > 0 ? x : 0)*255;
-      const b = 0*255;
+      const b = 0;
       return `rgb(${r},${g},${b})`;
     }
   }
