@@ -1,6 +1,6 @@
 {
-  "short_name": "RhythmAnalyzer",
-  "name": "Rhythm Analyzer",
+  "short_name": "HadamardTransformer",
+  "name": "Hadamard transformer",
   "icons": [
     {
       "src": "logo32.png",

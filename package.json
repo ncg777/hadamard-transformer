@@ -1,6 +1,6 @@
 {
-  "name": "rhythm-analyzer",
-  "homepage": "https://github.com/ncg777/rhythm-analyzer",
+  "name": "hadamard-transformer",
+  "homepage": "https://github.com/ncg777/hadamard-transformer",
   "type": "module",
   "version": "2025.1.15",
   "scripts": {
@@ -14,7 +14,7 @@
     "@mdi/font": "7.4.47",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
-    "rhythm-analyzer": "file:",
+    "hadamard-transformer": "file:",
     "roboto-fontface": "*",
     "ultra-mega-enumerator": "2025.1.14-3",
     "vue": "^3.4.31",

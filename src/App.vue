@@ -2,10 +2,8 @@
   <v-app  >
     <v-main :style="'padding:2vw; max-width: 95vw;padding-top: 3vh; position:relative;'">
       <a @click.prevent="showHelpModal" class="help-link">?</a>
-      
       <v-row>
-        
-        <h1 style="text-align: center; width:100%">Rhythm Analyzer</h1>
+        <h1 style="text-align: center; width:100%">Hadamard transformer</h1>
         <v-col cols="12">
           <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" />
         </v-col>
@@ -20,7 +18,7 @@
         <v-col cols="9">
           <div >
             <h3 style="text-align: center; width:100%">Hadamard</h3>
-            <RhythmHadamard :value="hexRhythm" :height="'45vh'" :width="'100%'" />
+            <RhythmHadamard :value="hexRhythm" :height="'45vh'" :width="'100%'" @update:value="updateHexRhythm" />
           </div>
         </v-col>
       </v-row>
@@ -62,11 +60,14 @@
             <br />
             <h3>Hadamard</h3>
             <p>
-              Displays the Hadamard matrix in sequency order for the rhythm if any.
+              Displays the Hadamard matrix associated with the rhythm if any.
             </p>
             <p>
               The color scheme encodes the values of the Hadamard transform of the rhythm as either red or green for negative 
               and positive values respectively. The brighter the color, the higher the value is.
+            </p>
+            <p>
+              For each row of the matrix, the reverse transform can be applied, - or + 1 for this row. When clicking - or +, the transform is applied again.
             </p>
           </v-card-text>
         </v-card>

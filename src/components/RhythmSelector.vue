@@ -25,7 +25,6 @@
             :width="0.9*cellSize"
             :height="0.9*cellSize"
             :fill="active ? 'white' : 'black'"
-            @click="toggleCell(index)"
             :stroke="index%16==0?'gold':'lightgrey'"
             :stroke-width="cellSize/10"
           />
@@ -36,7 +35,7 @@
             :cy="mid.y-0.05*this.cellSize"
             :r="cellSize/3"
             fill="darkgrey"
-            @click="toggleCell(index)"
+            style="z-index: -1;"
           />
           <text
             v-for="(index, i) in combArr"
@@ -44,7 +43,6 @@
             :x="(index * cellSize)+this.cellSize/2.0"
             :y="this.cellSize/2.0"
             :font-size="0.5*cellSize"
-            @click="toggleCell(index)"
             fill="black"
             text-anchor="middle"
             dominant-baseline="middle">{{this.contour[i]}}</text>
@@ -57,8 +55,18 @@
             fill="white"
             text-anchor="middle"
             dominant-baseline="middle"
-            @click="toggleCell(index)"
           >{{this.shadowContour[index]}}</text>
+          <rect
+            v-for="(active, index) in rhythmArray"
+            :key="index"
+            :x="(index * cellSize)"
+            :y="0"
+            :width="0.9*cellSize"
+            :height="0.9*cellSize"
+            :fill="'rgba(255,255,255,0)'"
+            @click="toggleCell(index)"
+            stroke="0"
+          />
         </svg>
       </v-col>
     </v-row>
@@ -156,7 +164,7 @@ export default {
       const ra = this.rhythmArray;
 
       ra[index] = 1 - this.rhythmArray[index];
-      this.hexString = (new BinaryNatural(ra).reverse()).toNatural(Name.Hexadecimal).toString();
+      this.hexString = (new BinaryNatural(ra)).reverse().toNatural(Name.Hexadecimal).toString();
       this.onHexStringChange();
     },
   }

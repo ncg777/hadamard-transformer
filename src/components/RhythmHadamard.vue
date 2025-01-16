@@ -2,10 +2,10 @@
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
-    :viewBox="'-2 -2 104 104'"
+    :viewBox="'-2 -2 ' + (((this.rows+2)*this.cellSize).toFixed(4)+4)+ ' 104'"
     xmlns="http://www.w3.org/2000/svg"
   >
-  <g v-for="(row, rowIndex) in hadamardArrSequency" :key="rowIndex">
+  <g v-for="(row, rowIndex) in hadamardArr" :key="rowIndex">
       <rect
         v-for="(cell, colIndex) in row"
         :key="colIndex"
@@ -13,9 +13,28 @@
         :y="(rows-1-rowIndex) * cellSize"
         :width="cellSize"
         :height="cellSize"
-        :fill="cell === 1 ? color(transform[rowIndex],rowIndex) : 'black'"
+        :fill="cell === 1 ? color(transformNorm[rowIndex],rowIndex) : 'black'"
         :stroke="0"
       />
+      <text
+      :key="'minus-' + rowIndex"
+      :x="(rows+0.5)*cellSize"
+      :y="(rowIndex * cellSize)+(cellSize/2.0)"
+      :font-size="cellSize/2.0"
+      :fill="'rgb(255,0,0)'"
+      text-anchor="middle"
+      dominant-baseline="middle" 
+      @click="minus(rowIndex)">-</text>
+      
+      <text
+      :key="'plus-' + rowIndex"
+      :x="(rows+1.5)*cellSize"
+      :y="(rowIndex * cellSize)+(cellSize/2.0)"
+      :font-size="cellSize/2.0"
+      :fill="'rgb(0,255,0)'"
+      text-anchor="middle"
+      dominant-baseline="middle" 
+      @click="plus(rowIndex)">+</text>
     </g>
   </svg>
 </template>
@@ -24,6 +43,7 @@
 import { HadamardMatrix } from "../HadamardMatrix";
 import { Natural } from "../Natural";
 import { Name } from '../Cipher';
+import { BinaryNatural } from "@/BinaryNatural";
 
 export default {
   name: "RhythmHadamard",
@@ -51,11 +71,14 @@ export default {
       const h = HadamardMatrix.getMatrix(Math.log2(this.rows));
       return h;
     },
-    hadamardArrSequency() {
-      return this.hadamard.sortSequency().toArray()
+    hadamardArr() {
+      return this.hadamard.toArray()
     },
     transform() {
-      return this.hadamard.transform(this.hexToBinary(this.hexString), true).map(n => n/this.cardinality);
+      return this.hadamard.transform(this.hexToBinary(this.hexString), false);
+    },
+    transformNorm() {
+      return this.transform.map(n => n/this.cardinality);
     },
     cardinality() {
       return (new Natural(Name.Hexadecimal, this.hexString)).toBinaryNatural().cardinality();
@@ -67,17 +90,38 @@ export default {
       return (100.0/this.rows);
     },
     rows() {
-      const bn = (new Natural(Name.Hexadecimal, this.hexString)).toBinaryNatural();
-      const n = bn.size();
-      return n;
+      return this.hexString.replace(/\s+/g,'').length*4;
     },
   },
   watch: {
     value(newValue) {
       this.hexString = newValue;
+      this.onHexStringChange();
     },
   },
   methods: {
+    onHexStringChange() {
+      this.$emit("update:value", this.hexString);
+    },
+    minus(rowIndex) {
+      const t = this.transform.splice(0);
+      const c = this.cardinality;
+      if(t[rowIndex] > -c) {
+        t[rowIndex]--;
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.onHexStringChange();
+      }
+    },
+    plus(rowIndex) {
+      const t = this.transform.splice(0);
+      const c = this.cardinality;
+      if(t[rowIndex] < c) {
+        t[rowIndex]++;
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t).map(n => n >= 1 ? true : false))).toNatural(Name.Hexadecimal).toString());
+        this.onHexStringChange();
+      }
+    },
+
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
     },
