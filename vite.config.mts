@@ -26,7 +26,7 @@ export default defineConfig({
       },
     }),
   ],
-  base:'/rhythm-analyzer/',
+  base:'/hadamard-transformer/',
   define: { 'process.env': {} },
   resolve: {
     alias: {
