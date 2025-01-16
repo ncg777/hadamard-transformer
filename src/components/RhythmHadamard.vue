@@ -1,4 +1,6 @@
 <template>
+  <div style="text-align: center;"><v-btn @click="undo" :disabled="!canUndo">Undo</v-btn></div>
+  
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
@@ -65,6 +67,7 @@ export default {
   data() {
     return {
       hexString: this.value,
+      previousState:null,
     };
   },
   computed: {
@@ -93,6 +96,9 @@ export default {
     rows() {
       return this.hexString.replace(/\s+/g,'').length*4;
     },
+    canUndo() {
+      return this.previousState !== null; // Check if there's a saved previous state
+    }
   },
   watch: {
     value(newValue) {
@@ -104,7 +110,18 @@ export default {
     onHexStringChange() {
       this.$emit("update:value", this.hexString);
     },
+    saveState() {
+      this.previousState = this.hexString; // Save the current state
+    },
+    undo() {
+      if (this.canUndo) {
+        this.hexString = this.previousState; // Restore the previous state
+        this.onHexStringChange(); // Emit the change
+        this.previousState = null; // Clear the previous state after undo
+      }
+    },
     minus(rowIndex) {
+      this.saveState();
       const t = this.transform.splice(0);
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
@@ -114,6 +131,7 @@ export default {
       }
     },
     plus(rowIndex) {
+      this.saveState();
       const t = this.transform.splice(0);
       const c = this.cardinality;
       if(t[rowIndex] < c) {

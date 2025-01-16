@@ -12,7 +12,7 @@
       :y="(index * cellSize)"
       :width="cellSize*2"
       :height="cellSize"
-      :fill="'rgb(' + (255*v)+ ',' + (255*v) + ', ' + (255*v) +')'"
+      :fill="'rgb(' + (255*Math.sqrt(v))+ ',' + (255*Math.sqrt(v)) + ', ' + (255*Math.sqrt(v)) +')'"
       :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
       :stroke-width="cellSize/20"
     />
