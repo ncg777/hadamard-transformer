@@ -1,13 +1,8 @@
 <template>
   <v-app  >
     <v-main :style="'padding:2vw; max-width: 95vw;padding-top: 3vh; position:relative;'">
+      <a @click.prevent="showHelpModal" class="help-link">?</a>
       
-      <v-btn
-          color="primary"
-          floating
-          @click="showHelpModal"
-          class="help-button"
-        >?</v-btn>
       <v-row>
         
         <h1 style="text-align: center;">Rhythm Analyzer</h1>
@@ -96,11 +91,16 @@ function showHelpModal() {
 </script>
 
 <style scoped>
-.help-button {
+.help-link {
   position: absolute;
-  float: right;
   right: 3vh;
   top: 3vh;
+  font-size: 20pt;
+  color: #00ff00;
+  cursor: pointer;;
+}
+.help-link:hover {
+  text-decoration: underline; /* Adds underline on hover if desired */
 }
 h1, h3 {
   text-align: center;
