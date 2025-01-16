@@ -1,6 +1,5 @@
 <template>
-  <v-container>
-    <v-row justify="center">
+    <v-row>
       <v-col cols="12" md="12">
         <v-text-field
           v-model="hexString"
@@ -10,58 +9,59 @@
         />
       </v-col>
     </v-row>
-    <v-row justify="center">
-      <svg
-        :width="this.width"
-        :height="this.height"
-        :viewBox="'-2 0 104 ' +(this.cellSize)"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          v-for="(active, index) in rhythmArray"
-          :key="index"
-          :x="(index * cellSize)"
-          :y="0"
-          :width="0.9*cellSize"
-          :height="0.9*cellSize"
-          :fill="active ? 'white' : 'black'"
-          @click="toggleCell(index)"
-          :stroke="index%16==0?'gold':'lightgrey'"
-          :stroke-width="cellSize/10"
-        />
-        <circle
-          v-for="(mid, index) in midPoints"
-          :key="'mid-' + index"
-          :cx="mid.x-0.05*this.cellSize"
-          :cy="mid.y-0.05*this.cellSize"
-          :r="cellSize/3"
-          fill="darkgrey"
-          @click="toggleCell(index)"
-        />
-        <text
-          v-for="(index, i) in combArr"
-          :key="'note-' + index"
-          :x="(index * cellSize)+this.cellSize/2.0"
-          :y="this.cellSize/2.0"
-          :font-size="0.5*cellSize"
-          @click="toggleCell(index)"
-          fill="black"
-          text-anchor="middle"
-          dominant-baseline="middle">{{this.contour[i]}}</text>
-        <text
-          v-for="(mid, index) in midPoints"
-          :key="'shadow-' + index"
-          :x="mid.x-0.05*this.cellSize"
-          :y="mid.y"
-          :font-size="0.5*cellSize"
-          fill="white"
-          text-anchor="middle"
-          dominant-baseline="middle"
-          @click="toggleCell(index)"
-        >{{this.shadowContour[index]}}</text>
-      </svg>
+    <v-row>
+      <v-col cols="12" :style="'margin:0;padding:0; padding-top:5vh; padding-bottom:5vh; max-width: 100%; witdh:100%; overflow-x: auto;'">
+        <svg
+          :width="(6+(100*this.columns/16))+'%'"
+          :height="(this.cellSize) + 'vw'"
+          :viewBox="'-3 0 '+ (6+(100*this.columns/16)) +  ' ' +(this.cellSize)"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            v-for="(active, index) in rhythmArray"
+            :key="index"
+            :x="(index * cellSize)"
+            :y="0"
+            :width="0.9*cellSize"
+            :height="0.9*cellSize"
+            :fill="active ? 'white' : 'black'"
+            @click="toggleCell(index)"
+            :stroke="index%16==0?'gold':'lightgrey'"
+            :stroke-width="cellSize/10"
+          />
+          <circle
+            v-for="(mid, index) in midPoints"
+            :key="'mid-' + index"
+            :cx="mid.x-0.05*this.cellSize"
+            :cy="mid.y-0.05*this.cellSize"
+            :r="cellSize/3"
+            fill="darkgrey"
+            @click="toggleCell(index)"
+          />
+          <text
+            v-for="(index, i) in combArr"
+            :key="'note-' + index"
+            :x="(index * cellSize)+this.cellSize/2.0"
+            :y="this.cellSize/2.0"
+            :font-size="0.5*cellSize"
+            @click="toggleCell(index)"
+            fill="black"
+            text-anchor="middle"
+            dominant-baseline="middle">{{this.contour[i]}}</text>
+          <text
+            v-for="(mid, index) in midPoints"
+            :key="'shadow-' + index"
+            :x="mid.x-0.05*this.cellSize"
+            :y="mid.y"
+            :font-size="0.5*cellSize"
+            fill="white"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            @click="toggleCell(index)"
+          >{{this.shadowContour[index]}}</text>
+        </svg>
+      </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script>
@@ -77,14 +77,6 @@ export default {
       type: String,
       required: true,
     },
-    width: {
-      type: String,
-      default: "100%"
-    },
-    height: {
-      type: String,
-      default: "5%" 
-    },
   },
   data() {
     return {
@@ -96,7 +88,7 @@ export default {
       return this.hexToBinary(this.hexString);
     },
     cellSize() {
-      return (100.0/this.columns);
+      return (100.0/16);
     },
     columns() {
       return this.rhythmArray.length;
@@ -118,12 +110,13 @@ export default {
     },
     midPoints() {
       const points = [];
+      const f = this.columns/16;
       for(let i=0; i< this.combArr.length;i++) {
         let x = (this.combArr[i]+(this.comp[i]/2.0))+0.5;
         if(x >= this.columns) x -= this.columns;
         x = (100.0*x/this.columns);
         points.push({
-            x: x,
+            x: x*f,
             y: this.cellSize/2.0,
           });
       }
@@ -173,5 +166,6 @@ export default {
 <style scoped>
 svg {
   border: 1px solid black;
+  position: relative;
 }
 </style>

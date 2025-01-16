@@ -1,6 +1,6 @@
 <template>
   <v-app  >
-    <v-main>
+    <v-main :style="'padding:2vw; max-width: 95vw;padding-top: 3vh; position:relative;'">
       
       <v-btn
           color="primary"
@@ -8,22 +8,24 @@
           @click="showHelpModal"
           class="help-button"
         >?</v-btn>
-      <v-row justify="center" style="max-width: 95vw;padding-top: 3vh;">
+      <v-row>
         
         <h1 style="text-align: center;">Rhythm Analyzer</h1>
         <v-col cols="12">
           <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" />
         </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="3">
           <div>
             <h3>IV</h3>
-            <RhythmIV :value="hexRhythm" :height="'55vh'" :width="'100%'" />
+            <RhythmIV :value="hexRhythm" :height="'45vh'" :width="'100%'" />
           </div>
         </v-col>
         <v-col cols="9">
           <div >
             <h3>Hadamard</h3>
-            <RhythmHadamard :value="hexRhythm" :height="'55vh'" :width="'100%'" />
+            <RhythmHadamard :value="hexRhythm" :height="'45vh'" :width="'100%'" />
           </div>
         </v-col>
       </v-row>
@@ -97,10 +99,11 @@ function showHelpModal() {
 .help-button {
   position: absolute;
   float: right;
-  right: 5vw;
-  margin-top: 10px;
+  right: 3vh;
+  top: 3vh;
 }
-h3 {
+h1, h3 {
   text-align: center;
+  width:100%;
 }
 </style>
