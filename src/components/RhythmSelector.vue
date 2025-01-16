@@ -12,7 +12,7 @@
     <v-row>
       <v-col cols="12" :style="'margin:0;padding:0; padding-top:5vh; padding-bottom:5vh; max-width: 100%; witdh:100%; overflow-x: auto;'">
         <svg
-          :width="(6+(100*this.columns/16))+'%'"
+          :width="(6+(94*this.columns/16))+'%'"
           :height="(this.cellSize) + 'vw'"
           :viewBox="'-3 0 '+ (6+(100*this.columns/16)) +  ' ' +(this.cellSize)"
           xmlns="http://www.w3.org/2000/svg"
