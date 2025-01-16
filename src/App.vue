@@ -5,7 +5,7 @@
       
       <v-row>
         
-        <h1 style="text-align: center;">Rhythm Analyzer</h1>
+        <h1 style="text-align: center; width:100%">Rhythm Analyzer</h1>
         <v-col cols="12">
           <RhythmSelector :value="hexRhythm" @update:value="updateHexRhythm" />
         </v-col>
@@ -13,19 +13,19 @@
       <v-row>
         <v-col cols="3">
           <div>
-            <h3>IV</h3>
+            <h3 style="text-align: center; width:100%">IV</h3>
             <RhythmIV :value="hexRhythm" :height="'45vh'" :width="'100%'" />
           </div>
         </v-col>
         <v-col cols="9">
           <div >
-            <h3>Hadamard</h3>
+            <h3 style="text-align: center; width:100%">Hadamard</h3>
             <RhythmHadamard :value="hexRhythm" :height="'45vh'" :width="'100%'" />
           </div>
         </v-col>
       </v-row>
       <!-- Help Modal -->
-      <v-dialog v-model="isHelpModalOpen" persistent max-width="50vw" hide-overlay>
+      <v-dialog v-model="isHelpModalOpen" persistent hide-overlay>
         <v-card >
           <v-card-title class="headline">
             Rhythm Analyzer
@@ -49,6 +49,7 @@
             <p>
               The shadow is also displayed as circles with their corresponding shadow contour values.
             </p>
+            <br />
             <h3>IV (Interval vector)</h3>
             <p>
               Below is the normalized interval vector of the rhythm:
@@ -58,6 +59,7 @@
               <li>Higher frequencies are on top and borders are blue.</li>
               <li>A higher energy level means a whiter cell content.</li>
             </ul>
+            <br />
             <h3>Hadamard</h3>
             <p>
               Displays the Hadamard matrix in sequency order for the rhythm if any.
@@ -94,16 +96,12 @@ function showHelpModal() {
 .help-link {
   position: absolute;
   right: 3vh;
-  top: 3vh;
+  top: 0;
   font-size: 20pt;
   color: #00ff00;
   cursor: pointer;;
 }
 .help-link:hover {
   text-decoration: underline; /* Adds underline on hover if desired */
-}
-h1, h3 {
-  text-align: center;
-  width:100%;
 }
 </style>
