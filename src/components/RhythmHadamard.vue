@@ -136,7 +136,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
         t[rowIndex]--;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -146,7 +146,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] > 0 || t[rowIndex] < 0) {
         t[rowIndex] = 0;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
@@ -156,7 +156,7 @@ export default {
       const c = this.cardinality;
       if(t[rowIndex] < c) {
         t[rowIndex]++;
-        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n > 0.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
+        this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
     },
