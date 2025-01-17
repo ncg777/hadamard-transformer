@@ -15,7 +15,7 @@
         :y="rowIndex * cellSize"
         :width="cellSize*0.975"
         :height="cellSize*0.975"
-        :fill="cell === 1 ? color(Math.sqrt(transformNorm[rowIndex]),rowIndex,colIndex) : 'black'"
+        :fill="cell === 1 ? color(Math.cbrt(transformNorm[rowIndex]),rowIndex,colIndex) : 'black'"
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
         :stroke-width="cellSize/40"
       />
@@ -108,7 +108,7 @@ export default {
       return this.hexString.replace(/\s+/g,'').length*4;
     },
     canUndo() {
-      return this.undoStack.length > 0; // Check if there's a saved previous state
+      return this.undoStack.length > 0;
     }
   },
   watch: {
@@ -135,7 +135,7 @@ export default {
       const t = this.transform.splice(0);
       const c = this.cardinality;
       if(t[rowIndex] > -c) {
-        t[rowIndex]--;
+        t[rowIndex]=-c;
         this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
@@ -155,7 +155,7 @@ export default {
       const t = this.transform.splice(0);
       const c = this.cardinality;
       if(t[rowIndex] < c) {
-        t[rowIndex]++;
+        t[rowIndex]=c;
         this.hexString = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
         this.onHexStringChange();
       }
