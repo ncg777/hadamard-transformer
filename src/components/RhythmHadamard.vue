@@ -4,7 +4,7 @@
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
-    :viewBox="'-2 -2 ' + (((this.rows+3)*this.cellSize).toFixed(4)+4)+ ' 104'"
+    :viewBox="'-2 -2 ' + (((this.rows+1)*this.cellSize).toFixed(4)+4)+ ' 104'"
     xmlns="http://www.w3.org/2000/svg"
   >
   <g v-for="(row, rowIndex) in hadamardArr" :key="rowIndex">
@@ -18,27 +18,8 @@
         :fill="cell === 1 ? color(Math.cbrt(transformNorm[rowIndex]),rowIndex,colIndex) : 'black'"
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
         :stroke-width="cellSize/40"
+        @click="swap(rowIndex,colIndex)"
       />
-      <text v-if="rowIndex>0"
-      :key="'minus-' + rowIndex"
-      :x="(rows+0.5)*cellSize"
-      :y="(rowIndex * cellSize)+(cellSize/2.0)"
-      :font-size="cellSize"
-      :fill="'rgb(255,0,0)'"
-      text-anchor="middle"
-      dominant-baseline="middle"
-      style="cursor: pointer;"
-      @click="minus(rowIndex)">-</text>
-      <text v-if="rowIndex>0"
-      :key="'plus-' + rowIndex"
-      :x="(rows+1.5)*cellSize"
-      :y="(rowIndex * cellSize)+(cellSize/2.0)"
-      :font-size="cellSize"
-      :fill="'rgb(0,255,0)'"
-      text-anchor="middle"
-      dominant-baseline="middle"
-      style="cursor: pointer;"
-      @click="plus(rowIndex)">+</text>
     </g>
   </svg>
 </template>
@@ -120,30 +101,15 @@ export default {
         this.onHexStringChange(); // Emit the change
       }
     },
-    minus(rowIndex) {
+    swap(rowIndex,colIndex) {
+      if(rowIndex == colIndex) return;
       const t = this.transform.splice(0);
       const c = this.cardinality;
-      if(t[rowIndex] > -c) {
+      if(t[rowIndex] > -c && t[colIndex] < c) {
         let o = this.hexString;
-        while(t[rowIndex] > -c) {
+        while(t[rowIndex] > -c && t[colIndex] < c) {
           t[rowIndex]--;
-          o = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
-          if(o != this.hexString) break;
-        }
-        if(this.hexString != o) {
-          this.saveState();
-          this.hexString = o;
-          this.onHexStringChange();
-        }
-      }
-    },
-    plus(rowIndex) {
-      const t = this.transform.splice(0);
-      const c = this.cardinality;
-      if(t[rowIndex] < c) {
-        let o = this.hexString;
-        while(t[rowIndex] < c) {
-          t[rowIndex]++;
+          t[colIndex]++;
           o = ((new BinaryNatural(this.hadamard.transform(t,false).map(n => n >= 1.0 ? true : false))).reverse().toNatural(Name.Hexadecimal).toString());
           if(o != this.hexString) break;
         }
