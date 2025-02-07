@@ -66,7 +66,8 @@
               and positive values respectively. The brighter the color, the higher the value is.
             </p>
             <p>
-              For each row of the matrix, the reverse transform can be applied, - or + 1 for this row. When clicking - or +, the transform is applied again.
+              When a cell is clicked, unless it is on the diagonal, a unit is subtracted from position "rowIndex" and added to the position "colIndex"
+              in the transformed vector and the transform is applied again until there is a change.
             </p>
           </v-card-text>
         </v-card>
