@@ -20,7 +20,7 @@
         :height="cellSize*0.975"
         :fill="cell === 1 ? color(rowIndex,colIndex) : 'black'"
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
-        :stroke-width="cellSize/40"
+        :stroke-width="cellSize/10"
         @click="swap(rowIndex,colIndex)"
       />
       <text
