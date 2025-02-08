@@ -1,5 +1,8 @@
 <template>
-  <div style="text-align: center;"><v-btn @click="undo" :disabled="!canUndo">Undo</v-btn></div>
+  <div style="text-align: center;">
+    <v-btn @click="undo" :disabled="!canUndo">Undo</v-btn>
+    <v-btn @click="invert" style="margin-left: 10px;">±</v-btn>
+  </div>
   <div :style="'text-align:center;'">{{this.transform?.join(", ")}}</div>
   <svg v-if="isPureDuple"
     :width="this.width"
@@ -134,7 +137,29 @@ export default {
         }
       }
     },
+    invert() {
+      if (!this.transform) return;
+      
+      // Save current state
+      this.saveState();
+      
+      // Get current transform values
+      const currentTransform = this.transform.slice();
+      
+      // Invert all values except the first component
+      const invertedTransform = [this.rows-this.cardinality, ...currentTransform.slice(1).map(val => -1*val)];
+      // Create new BinaryNatural from inverted transform
+      const binaryNatural = 
+        new BinaryNatural(
+          this.hadamard
+            .transform(invertedTransform,false).map(n => n >= 0.999 ? true : false));
 
+      // Convert back to hex string
+      this.hexString = binaryNatural.reverse().toNatural(Name.Hexadecimal).toString();
+      
+      // Emit the change
+      this.onHexStringChange();
+    },
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
     },
