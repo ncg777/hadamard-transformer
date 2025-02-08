@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center;"><v-btn @click="undo" :disabled="!canUndo">Undo</v-btn></div>
-  
+  <div :style="'text-align:center;'">{{this.transform.join(", ")}}</div>
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
@@ -15,7 +15,7 @@
         :y="rowIndex * cellSize"
         :width="cellSize*0.975"
         :height="cellSize*0.975"
-        :fill="cell === 1 ? color(Math.cbrt(transformNorm[rowIndex]),rowIndex,colIndex) : 'black'"
+        :fill="cell === 1 ? color(rowIndex,colIndex) : 'black'"
         :stroke="hadamard.get(rowIndex,colIndex) ==1 ? 'white' : 0"
         :stroke-width="cellSize/40"
         @click="swap(rowIndex,colIndex)"
@@ -61,7 +61,7 @@ export default {
       return this.hadamard.toArray()
     },
     transform() {
-      return this.hadamard.transform(this.hexToBinary(this.hexString), false);
+      return this.hadamard?.transform(this.hexToBinary(this.hexString), false);
     },
     transformNorm() {
       return this.transform.map(n => n/this.cardinality);
@@ -124,8 +124,9 @@ export default {
     hexToBinary(hex) {
       return (new Natural(Name.Hexadecimal, hex)).toBinaryNatural().getBitSetAsNumberArray();
     },
-    color(_x, rowIndex,colIndex) {
-      const x = _x;
+    color(rowIndex,colIndex) {
+      const i = Math.max(rowIndex, colIndex);
+      const x = Math.cbrt(this.transformNorm[i]);
       const h = this.hadamard.get(rowIndex,colIndex) == 1 ? 1 : 0;
       const r = (x < 0 ? Math.abs(x) : 0)*255;
       const g = (x > 0 ? x : 0)*255;
