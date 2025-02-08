@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center;"><v-btn @click="undo" :disabled="!canUndo">Undo</v-btn></div>
-  <div :style="'text-align:center;'">{{this.transform.join(", ")}}</div>
+  <div :style="'text-align:center;'">{{this.transform?.join(", ")}}</div>
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
@@ -20,6 +20,19 @@
         :stroke-width="cellSize/40"
         @click="swap(rowIndex,colIndex)"
       />
+      <text
+          v-for="(cell, colIndex) in row"
+          :x="colIndex * cellSize + cellSize/2"
+          :y="rowIndex * cellSize + cellSize/2"
+          fill="white"
+          :font-size="cellSize*0.8"
+          font-family="sans-serif"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          @click="swap(rowIndex,colIndex)"
+        >
+          {{this.transform[Math.max(rowIndex,colIndex)] == 0 ? "" : this.transform[Math.max(rowIndex,colIndex)]}}
+        </text>
     </g>
   </svg>
 </template>
@@ -29,6 +42,7 @@ import { HadamardMatrix } from "../HadamardMatrix";
 import { Natural } from "../Natural";
 import { Name } from '../Cipher';
 import { BinaryNatural } from "@/BinaryNatural";
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default {
   name: "RhythmHadamard",

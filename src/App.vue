@@ -49,12 +49,11 @@
             <br />
             <h3>IV (Interval vector)</h3>
             <p>
-              Below is the normalized interval vector of the rhythm:
+              Below is the interval vector of the rhythm:
             </p>
             <ul>
               <li>Lower frequencies are at the bottom and borders are red.</li>
               <li>Higher frequencies are on top and borders are blue.</li>
-              <li>A higher energy level means a whiter cell content.</li>
             </ul>
             <br />
             <h3>Hadamard</h3>
@@ -67,7 +66,7 @@
             </p>
             <p>
               When a cell is clicked, unless it is on the diagonal, a unit is subtracted from position "rowIndex" and added to the position "colIndex"
-              in the transformed vector and the transform is applied again until there is a change.
+              in the transformed vector and the transform is applied again until there is a change or a limit is reached without change.
             </p>
           </v-card-text>
         </v-card>

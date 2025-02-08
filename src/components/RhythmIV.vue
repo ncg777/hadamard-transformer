@@ -12,19 +12,18 @@
       :y="(index * cellSize)"
       :width="cellSize*2"
       :height="cellSize"
-      :fill="'rgb(' + (255*Math.sqrt(v))+ ',' + (255*Math.sqrt(v)) + ', ' + (255*Math.sqrt(v)) +')'"
       :stroke="'rgb('+ (255*(index/(spectrum.length-1)))+  ', 0, ' +  255*((spectrum.length-1-index)/(spectrum.length-1))+ ')'"
       :stroke-width="cellSize/20"
     />
     <text
       v-for="(v, index) in spectrum"
       :key="'specval-' + index"
-      :x="this.cellSize"
+      :x="1"
       :y="(index * cellSize)+(this.cellSize/2.0)"
       :font-size="cellSize/2.0"
-      :fill="'rgb(' + (255*(1.0-Math.round(v)))+ ',' + (255*(1.0-Math.round(v))) + ', ' + (255*(1.0-Math.round(v))) +')'"
-      text-anchor="middle"
-      dominant-baseline="middle">{{ this.spectrum[index].toFixed(4) }}</text>
+      fill="white"
+      text-anchor="start"
+      dominant-baseline="middle">{{ (index+1).toString().padStart(2,'0')+ ": "+ this.spectrum[index].toFixed(0) }}</text>
   </svg>
 </template>
 
@@ -59,7 +58,7 @@ export default {
       const bn = (new Natural(Name.Hexadecimal, this.hexString)).toBinaryNatural();
       const k = bn.cardinality();
       const max = k*(k-1)/2.0;
-      return BinaryNatural.calcSpectrum(bn).toArray().map((n) => n/max);
+      return BinaryNatural.calcSpectrum(bn).toArray();
     },
     cellSize() {
       return (100.0/this.rows);
