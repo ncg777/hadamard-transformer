@@ -3,7 +3,6 @@
     <v-btn @click="undo" :disabled="!canUndo">Undo</v-btn>
     <v-btn @click="invert" style="margin-left: 10px;">±</v-btn>
   </div>
-  <div :style="'text-align:center;'">{{this.transform?.join(", ")}}</div>
   <svg v-if="isPureDuple"
     :width="this.width"
     :height="this.height"
@@ -38,6 +37,7 @@
         </text>
     </g>
   </svg>
+  <div :style="'text-align:center;'">{{this.transform?.join(", ")}}</div>
 </template>
 
 <script>

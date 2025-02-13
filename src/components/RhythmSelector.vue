@@ -10,7 +10,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" :style="'margin:0;padding:0; padding-top:5vh; padding-bottom:5vh; max-width: 100%; witdh:100%; overflow-x: auto;'">
+      <v-col cols="12" :style="'margin:0;padding:0; padding-top:2vh; padding-bottom:2vh; max-width: 100%; witdh:100%; overflow-x: auto;'">
         <svg
           :width="(6+(94*this.columns/16))+'%'"
           :height="(this.cellSize) + 'vw'"
