@@ -2,7 +2,7 @@
   "name": "hadamard-transformer",
   "homepage": "https://github.com/ncg777/hadamard-transformer",
   "type": "module",
-  "version": "2025.1.15",
+  "version": "2025.2.14",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
