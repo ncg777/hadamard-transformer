@@ -16,7 +16,7 @@
     "eslint-plugin-vue": "^9.32.0",
     "hadamard-transformer": "file:",
     "roboto-fontface": "*",
-    "ultra-mega-enumerator": "2025.1.14-3",
+    "ultra-mega-enumerator": "2025.2.23",
     "vue": "^3.4.31",
     "vuetify": "^3.6.14"
   },
